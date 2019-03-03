@@ -1,0 +1,72 @@
+.label{
+    color: #776e65;
+    background-color: #cdc1b4;
+}
+.label2{
+    color: #776e65;
+    background-color: #eee4da;
+}
+.label4{
+    color: #f9f6f2;
+    background-color: #ede0c8;
+}
+.label8{
+    color: #f9f6f2;
+    background-color: #f2b179;
+}
+.label16{
+    color: #f9f6f2;
+    background-color: #f59563;
+}
+.label32{
+    color: #f9f6f2;
+    background-color: #f67c5f;
+}
+.label64{
+    color: #f9f6f2;
+    background-color: #f65e3b;
+}
+.label128{
+    color: #f9f6f2;
+    background-color: #edcf72;
+}
+.label256{
+    color: #f9f6f2;
+    background-color: #edcc61;
+}
+.label512{
+    color: #f9f6f2;
+    background-color: #e4c02a;
+}
+.label1024{
+    color: #f9f6f2;
+    background-color: #e2ba13;
+}
+.label2048{
+    color: #f9f6f2;
+    background-color: #ecc400;
+}
+
+/* 主体 水平居中 */
+#main{
+    width: 500px;
+    margin: 0 auto;
+}
+
+table{
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+tr{
+    float: left;
+}
+td{
+    float: left;
+    box-sizing: border-box;
+    border: 1px white solid;
+    width: 100px;
+    height: 100px;
+    padding: 0px;
+    font: bold 32px/100px "黑体";
+    text-align: center;
+}
