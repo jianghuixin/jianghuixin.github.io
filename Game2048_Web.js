@@ -1,29 +1,28 @@
 $(function(){
-    addAllClass();
     initUI();
     fillTwo();
     fillTwo();
 });
 
-function addClass($Object){
+function addLabelClass($Object){
     var labelNum = $Object.text();
     $Object.addClass("label"+labelNum);
 }
 
-function addAllClass(){
+function addAllLabelClass(){
     $("td").each(function(){
-        addClass($(this));
+        addLabelClass($(this));
     });
 }
 
-function removeClass($Object){
+function removeLabelClass($Object){
     var labelNum = $Object.text();
     $Object.removeClass("label"+labelNum);
 }
 
-function removeAllClass(){
+function removeAllLabelClass(){
     $("td").each(function(){
-        removeClass($(this));
+        removeLabelClass($(this));
     });
 }
  
@@ -31,34 +30,84 @@ function fillTwo(){
     var count = $("td:empty").length;
     var position = parseInt(Math.random()*count);
     $Object = $("td:empty").eq(position);
-    removeClass($Object);
+    removeLabelClass($Object);
     $Object.text("2");
-    addClass($Object);
+    addLabelClass($Object);
 }
 
 function initUI(){
-    $("tr").each(function(){
+    $("tr").each(function(indexRow){
         var $Object = $(this).children("td");
-        $Object.each(function(index){
-            $(this).addClass("column"+index);
+        $Object.each(function(indexColumn){
+            $(this).addClass("row"+indexRow);
+            $(this).addClass("column"+indexColumn);
         });
     });
-    $("table").click(move);
+    addAllLabelClass();
+    $("span").each(function(){
+        $(this).click(function(){
+            moveLabel($(this).text());
+        });
+    });
 }
 
-function move(){
-    var tempLabel = [];
-    $("tr").each(function(){
-        var $Object = $(this).children("td");
-        $Object.each(function(){
+function moveLabel(direction)
+{
+    var array = [0, 0, 0, 0];
+    switch(direction)
+    {
+        case "up":
+            for(index in array){
+                array[index] = $(".column"+index);
+            }break;
+        case "left":
+            for(index in array){
+                array[index] = $(".row"+index);
+            }break;
+        case "down":
+            for(index in array){
+                array[index] = $($(".column"+index).toArray().reverse());
+            }break;
+        case "right":
+            for(index in array){
+                array[index] = $($(".row"+index).toArray().reverse());
+            }break;
+    }
+    if(move(array))
+        fillTwo();
+}
+
+function move(array){
+    var tempLabel, isMove = false;
+    $(array).each(function(){
+        tempLabel = [];
+        $(this).each(function(){
             tempNum = $(this).text();
-            if(tempLabel[tempLabel.length-1] == tempNum)
-                tempLabel[tempLabel.length-1] *= 2;
-            else
-                tempLabel.push(tempNum)
+            removeLabelClass($(this));
+            if(tempNum)
+                if(tempLabel[tempLabel.length-1] == tempNum)
+                    tempLabel[tempLabel.length-1] *= 2;
+                else
+                    tempLabel.push(tempNum);
         });
-        $Object.each(function(){
+        $(this).each(function(index){
+            if(tempLabel[index]==undefined)
+                tempLabel[index] = "";
+
+            if(tempLabel[index] != $(this).text())
+                isMove = true;
             
+            if(tempLabel[index])
+            {
+                $(this).text(tempLabel[index]);
+                addLabelClass($(this));
+            }
+            else
+            {
+                $(this).text("");
+                addLabelClass($(this));
+            }
         });
     });
+    return isMove;
 }
