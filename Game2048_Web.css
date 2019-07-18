@@ -55,7 +55,7 @@
 #control{
     width: 300px;
     height: 200px;
-    position: fixed;
+    position: relative;
     top: 450px;
     margin: 0 auto;
 }
